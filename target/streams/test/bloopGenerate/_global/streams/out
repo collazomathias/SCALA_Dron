@@ -1,0 +1,4 @@
+[debug] [dron-project-test] Classpath dependencies List()
+[debug] [dron-project-test] Dependencies from configurations List(dron-project)
+[debug] Bloop wrote the configuration of project 'dron-project-test' to 'C:\Users\Mathi\Desktop\Scala\dron-project\.bloop\dron-project-test.json'
+[success] Generated .bloop\dron-project-test.json
