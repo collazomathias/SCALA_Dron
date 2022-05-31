@@ -1,9 +1,23 @@
 package functions
 import dron.Dron
+import scala.annotation.switch
 
 object Functions {
 
-    def createDron(id: Int) : Dron = Dron(id, 0, 0, 0, 0, 0, 0)
+    def createDron(id: Int) = {
+        var dron = Dron(id, 0, 0, 0, 0, 0, 0)
+        dron = goTop(dron, 30)
+        dron = goDown(dron, 50)
+        dron = goTop(dron, 100)
+        dron = goDown(dron, 15)
+        dron = goLeft(dron, 15)
+        dron = goRight(dron, 30)
+        dron = goLeft(dron, 100)
+        dron = goBack(dron, 50)
+        dron = goFront(dron, 100)
+        dron = goTop(dron, 150)
+        dron
+    }
 
     def goTop(dron: Dron, top: Double) : Dron = {
         if(dron.top + top > 100) dron.copy(down = 0, top = 100)
