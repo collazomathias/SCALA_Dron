@@ -5,18 +5,18 @@ import scala.annotation.switch
 object Functions {
 
     def createDron(id: Int) = {
-        var dron = Dron(id, 0, 0, 0, 0, 0, 0)
-        dron = goTop(dron, 30)
-        dron = goDown(dron, 50)
-        dron = goTop(dron, 100)
-        dron = goDown(dron, 15)
-        dron = goLeft(dron, 15)
-        dron = goRight(dron, 30)
-        dron = goLeft(dron, 100)
-        dron = goBack(dron, 50)
-        dron = goFront(dron, 100)
-        dron = goTop(dron, 150)
-        dron
+        val dron = Dron(id, 0, 0, 0, 0, 0, 0)
+        val dron1 = goTop(dron, 30)
+        val dron2 = goDown(dron1, 50)
+        val dron3 = goTop(dron2, 100)
+        val dron4 = goDown(dron3, 15)
+        val dron5 = goLeft(dron4, 15)
+        val dron6 = goRight(dron5, 30)
+        val dron7 = goLeft(dron6, 100)
+        val dron8 = goBack(dron7, 50)
+        val dron9 = goFront(dron8, 100)
+        val dron10 = goTop(dron9, 150)
+        dron10
     }
 
     def goTop(dron: Dron, top: Double) : Dron = {
