@@ -15,7 +15,7 @@ object Front extends Movement
 trait Functions {
     type Id = Int
     type Distance = Double
-    def createDron(id : Id) : Dron
+    def createDron(id : Id, movements : List[(Movement, Distance)]) : Dron
     def goTop(dron : Dron, top : Distance) : Dron
     def goDown(dron : Dron, down : Distance) : Dron
     def goLeft(dron : Dron, left : Distance) : Dron
@@ -23,34 +23,14 @@ trait Functions {
     def goBack(dron : Dron, back : Distance) : Dron
     def goFront(dron : Dron, front : Distance) : Dron
     def showInfoDron(dron : Dron) : Unit
-    def moveDron(dron : Dron, movement : Movement, distance : Distance) : Dron
+    def moveDron(dron : Dron, movements: List[(Movement, Distance)]) : Dron
 }
 
 object Functions extends Functions {
-    def moveDron(dron: Dron, movement: Movement, distance: Distance) : Dron = {
-        movement match {
-            case Top => goTop(dron, distance)
-            case Down => goDown(dron, distance)
-            case Left => goLeft(dron, distance)
-            case Right => goRight(dron, distance)
-            case Back => goBack(dron, distance)
-            case Front => goFront(dron, distance)
-        }
-    }
 
-    def createDron(id: Id) = {
+    def createDron(id: Id, movements : List[(Movement, Distance)]) = {
         val dron = Dron(id, 0, 0, 0, 0, 0, 0)
-        val dron1 = moveDron(dron, Top, 30)
-        val dron2 = moveDron(dron1, Down, 50)
-        val dron3 = moveDron(dron2, Top, 100)
-        val dron4 = moveDron(dron3, Down, 15)
-        val dron5 = moveDron(dron4, Left, 15)
-        val dron6 = moveDron(dron5, Right, 30)
-        val dron7 = moveDron(dron6, Left, 100)
-        val dron8 = moveDron(dron7, Back, 50)
-        val dron9 = moveDron(dron8, Front, 100)
-        val dron10 = moveDron(dron9, Top, 150)
-        dron10
+        moveDron(dron, movements)
     }
 
     def goTop(dron: Dron, top: Distance) : Dron = {
@@ -93,11 +73,24 @@ object Functions extends Functions {
 
     def showInfoDron(dron: Dron) : Unit = {
         println("Dron ID: " + dron.id)
-        if(dron.down == 0) println("Y: " + dron.top)
-        if(dron.top == 0) println("Y: " + dron.down)
-        if(dron.right == 0) println("X: " + dron.left)
-        if(dron.left == 0) println("X: " + dron.right)
-        if(dron.front == 0) println("Z: " + dron.back)
-        if(dron.back == 0) println("Z: " + dron.front)
+        println("Left: \t" + dron.left)
+        println("Right: \t" + dron.right)
+        println("Top: \t" + dron.top)
+        println("Down: \t" + dron.down)
+        println("Back: \t" + dron.back)
+        println("Front: \t" + dron.front)
+    }
+    
+    def moveDron(dron: Dron, movements: List[(Movement, Distance)]) : Dron = {
+        movements.headOption.map(movement => {
+            movement._1 match {
+                case Top => moveDron(goTop(dron, movement._2), movements.drop(1))
+                case Down => moveDron(goDown(dron, movement._2), movements.drop(1))
+                case Left => moveDron(goLeft(dron, movement._2), movements.drop(1))
+                case Right => moveDron(goRight(dron, movement._2), movements.drop(1))
+                case Back => moveDron(goBack(dron, movement._2), movements.drop(1))
+                case Front => moveDron(goFront(dron, movement._2), movements.drop(1))
+            }
+        }).getOrElse(dron)
     }
 }
